@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metcalf | Direction de projets immobiliers</title>
+<meta name="description" content="Groupe Metcalf Inc., Montréal. Metcalf apporte à l'immobilier ce qui lui manquait : un suivi précis de chaque projet, chaque jour, piloté par l'intelligence artificielle. Montréal.">
+<meta property="og:title" content="Metcalf | L'industrie bâtit encore à l'aveugle">
+<meta property="og:description" content="Un suivi précis de chaque projet, chaque jour, piloté par l'intelligence artificielle.">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="icon" href="img/symbole.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #09090a; --charbon: #121214; --ivoire: #f4efe5; --creme: #faf7f1;
+    --or: #b3924f; --or-clair: #d6bd84; --encre: #171614; --taupe: #5e574b;
+    --ligne: #e1d8c7; --ligne-sombre: #2a2824; --gris: #9a9385;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: "Jost", "Segoe UI", system-ui, sans-serif; font-weight: 300; font-size: 17.5px; line-height: 1.75;
+    color: var(--taupe); background: var(--noir); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .cadre { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+  .serif, h1, h2, h3 { font-family: "Cormorant Garamond", "Times New Roman", serif; font-weight: 300; }
+  .sur { font-size: 11.5px; letter-spacing: .36em; text-transform: uppercase; color: var(--or); font-weight: 400; margin: 0 0 26px; }
+  h2 { color: var(--encre); font-size: clamp(38px, 5.2vw, 76px); line-height: 1.04; margin: 0; letter-spacing: -.012em; }
+  h2 i { color: var(--or); }
+  .clair { background: var(--creme); }
+  .ivoire { background: var(--ivoire); }
+  .sombre { background: var(--charbon); color: #b7b0a2; }
+  .sombre h2 { color: #fbf7ee; } .sombre h2 i { color: var(--or-clair); }
+  section { padding: 150px 0; position: relative; }
+
+  /* Rideau d'ouverture */
+  .rideau { position: fixed; inset: 0; z-index: 100; background: var(--noir); display: grid; place-items: center; }
+  .rideau img { height: 92px; width: auto; opacity: 0; }
+  html:not(.js) .rideau { display: none; }
+
+  /* Curseur */
+  .curseur { position: fixed; top: 0; left: 0; width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 1px solid var(--or-clair); border-radius: 50%; pointer-events: none; z-index: 90; opacity: 0; transition: width .25s, height .25s, margin .25s, background .25s, opacity .3s; mix-blend-mode: difference; }
+  .curseur.actif { opacity: 1; }
+  .curseur.grand { width: 78px; height: 78px; margin: -39px 0 0 -39px; background: rgba(214, 189, 132, .16); }
+
+  /* En-tête */
+  .haut { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .4s, border-color .4s; border-bottom: 1px solid transparent; }
+  .haut .cadre { display: flex; align-items: center; justify-content: space-between; min-height: 92px; transition: min-height .4s; }
+  .haut.plein { background: rgba(9, 9, 10, .88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: rgba(214, 189, 132, .16); }
+  .haut.plein .cadre { min-height: 66px; }
+  .marque { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+  .marque .symbole { height: 38px; width: auto; } .marque .mot { height: 15px; width: auto; }
+  nav a { color: #e6dfd1; text-decoration: none; margin-left: 38px; font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; font-weight: 400; position: relative; padding: 6px 0; }
+  nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px; background: var(--or-clair); transition: right .35s cubic-bezier(.2,.7,.2,1); }
+  nav a:hover::after { right: 0; }
+
+  /* Ouverture */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; color: var(--ivoire); overflow: hidden; background: var(--noir); padding: 0; }
+  .hero .fond { position: absolute; inset: -6% 0; background: url("img/hero.jpg") center 60% / cover no-repeat; will-change: transform; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(9,9,10,.74) 0%, rgba(9,9,10,.16) 28%, rgba(9,9,10,.5) 60%, rgba(9,9,10,.98) 100%), linear-gradient(90deg, rgba(9,9,10,.84) 0%, rgba(9,9,10,.3) 58%, rgba(9,9,10,0) 100%); }
+  .hero .cadre { position: relative; z-index: 2; width: 100%; padding-top: 150px; padding-bottom: 128px; }
+  .hero h1 { font-size: clamp(46px, min(8.6vw, 12.5vh), 132px); line-height: .96; margin: 0 0 34px; color: #fcf8ef; letter-spacing: -.02em; }
+  .hero h1 i { color: var(--or-clair); }
+  .ligne { display: block; overflow: hidden; padding-bottom: .08em; }
+  .ligne > span { display: block; }
+  .hero .intro { font-size: 20px; max-width: 54ch; margin: 0 0 44px; color: #ddd6c8; }
+  .hero .intro b { font-weight: 400; color: #fbf7ee; }
+  .bouton { display: inline-block; text-decoration: none; padding: 18px 38px; font-size: 11.5px; letter-spacing: .28em; text-transform: uppercase; font-weight: 400; border: 1px solid var(--or-clair); color: var(--noir); background: var(--or-clair); transition: background .3s, color .3s; }
+  .bouton:hover { background: #ead8ab; }
+  .bouton.trait { background: transparent; color: var(--or-clair); margin-left: 14px; }
+  .bouton.trait:hover { background: rgba(214, 189, 132, .12); }
+  .bandeau { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; border-top: 1px solid rgba(214, 189, 132, .2); }
+  .bandeau .cadre { display: flex; justify-content: space-between; gap: 24px; padding-top: 22px; padding-bottom: 22px; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #bdb5a5; }
+  .bandeau span b { color: var(--or-clair); font-weight: 400; }
+
+  /* Défilant */
+  .defilant { background: var(--noir); border-top: 1px solid var(--ligne-sombre); border-bottom: 1px solid var(--ligne-sombre); overflow: hidden; padding: 26px 0; }
+  .defilant .piste { display: flex; width: max-content; animation: glisse 38s linear infinite; }
+  .defilant span { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 30px; color: #cfc7b7; padding: 0 30px; white-space: nowrap; }
+  .defilant span::after { content: "✦"; font-style: normal; font-size: 13px; color: var(--or); margin-left: 60px; vertical-align: middle; }
+  @keyframes glisse { to { transform: translateX(-50%); } }
+
+  /* Thèse : du brouillard à la preuve */
+  .these { background: var(--noir); padding: 0; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: #b9b2a4; }
+  .these .scene { position: absolute; inset: 0; }
+  .these canvas { width: 100%; height: 100%; display: block; }
+  .these::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 72% 36% at 50% 27%, rgba(9,9,10,.86), rgba(9,9,10,0) 72%); pointer-events: none; }
+  .these-contenu { position: relative; z-index: 2; height: 100%; padding-top: 15vh; text-align: center; }
+  .these .sur { margin-bottom: 30px; }
+  .battements { position: relative; max-width: 1040px; margin: 0 auto; min-height: 250px; }
+  .battement { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: clamp(38px, min(6.2vw, 10.5vh), 98px); line-height: 1.02; color: #fbf7ee; margin: 0 0 24px; letter-spacing: -.016em; }
+  .battement i { color: var(--or-clair); }
+  html.js .battement { position: absolute; left: 0; right: 0; top: 0; margin: 0; opacity: 0; transform: translateY(30px) scale(.985); filter: blur(6px); transition: opacity .7s, transform .7s cubic-bezier(.2,.7,.2,1), filter .7s; }
+  html.js .battement.actif { opacity: 1; transform: none; filter: none; }
+  .these-bas { position: absolute; z-index: 2; left: 0; right: 0; bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 40px; max-width: 1280px; margin: 0 auto; }
+  .ecart { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #8f887a; }
+  .ecart .n { display: block; font-family: "Cormorant Garamond", serif; font-size: 80px; line-height: 1; letter-spacing: 0; color: var(--or-clair); margin-bottom: 6px; }
+  .pas { display: flex; gap: 10px; }
+  .pas i { width: 46px; height: 1px; background: #3b382f; transition: background .4s; }
+  .pas i.on { background: var(--or-clair); }
+  /* Hier et aujourd'hui */
+  .paires { border-top: 1px solid var(--ligne); }
+  .paire { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 30px; align-items: center; padding: 34px 0; border-bottom: 1px solid var(--ligne); }
+  .paire p { margin: 0; font-family: "Cormorant Garamond", serif; font-size: clamp(24px, 2.9vw, 42px); line-height: 1.14; }
+  .paire .hier { color: #a59d8d; text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: rgba(165, 157, 141, .7); }
+  .paire .auj { color: var(--encre); }
+  .paire .vers { color: var(--or); font-size: 24px; text-align: center; }
+
+  /* Méthode : bâtiment en 3D */
+  .methode { background: var(--noir); color: #b9b2a4; padding: 0; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; }
+  .methode .scene { position: absolute; inset: 0; }
+  .methode canvas { width: 100%; height: 100%; display: block; }
+  .methode::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,9,10,.96) 0%, rgba(9,9,10,.82) 30%, rgba(9,9,10,0) 56%); pointer-events: none; }
+  .methode .contenu { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+  .methode .contenu > * { max-width: 470px; }
+  .methode h2 { color: #fbf7ee; font-size: clamp(34px, 4.4vw, 62px); margin-bottom: 46px; }
+  .methode h2 i { color: var(--or-clair); }
+  .etapes { position: relative; min-height: 230px; }
+  .etape { position: absolute; inset: 0; opacity: 0; transform: translateY(18px); transition: opacity .55s, transform .55s; pointer-events: none; }
+  .etape.active { opacity: 1; transform: none; }
+  .etape .no { font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--or-clair); font-size: 22px; letter-spacing: .04em; }
+  .etape h3 { font-size: clamp(34px, 3.6vw, 52px); color: #f6f1e6; margin: 4px 0 14px; line-height: 1.05; }
+  .etape p { margin: 0; font-size: 18.5px; max-width: 44ch; color: #c2bbad; }
+  .jalons { display: flex; gap: 10px; margin-top: 34px; }
+  .jalons i { width: 46px; height: 1px; background: #3b382f; transition: background .4s; }
+  .jalons i.on { background: var(--or-clair); }
+  .afficheur { position: absolute; z-index: 2; right: 40px; bottom: 44px; text-align: right; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #8f887a; }
+  .afficheur .compte { font-family: "Cormorant Garamond", serif; font-size: 84px; line-height: 1; letter-spacing: 0; color: var(--or-clair); display: block; margin-bottom: 4px; }
+  .afficheur .compte small { font-size: 30px; color: #6f695d; }
+  .afficheur .etat { display: block; margin-top: 12px; color: #d9d2c3; letter-spacing: .2em; min-height: 1.6em; }
+  .afficheur .demo { display: inline-block; margin-top: 14px; border: 1px solid #3b382f; padding: 5px 10px; font-size: 9.5px; color: #7d766a; }
+
+  /* Preuve */
+  .entete { display: grid; grid-template-columns: 1.15fr 1fr; gap: 70px; align-items: end; margin-bottom: 64px; }
+  .chapeau { max-width: 52ch; font-size: 18.5px; margin: 0; }
+  .onglets { display: flex; gap: 10px; margin: 0 0 22px; flex-wrap: wrap; }
+  .onglets button { font: inherit; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; font-weight: 400; color: #a69f91; background: transparent; border: 1px solid var(--ligne-sombre); padding: 13px 24px; cursor: pointer; transition: all .25s; }
+  .onglets button[aria-selected="true"] { color: var(--noir); background: var(--or-clair); border-color: var(--or-clair); }
+  .compare { position: relative; aspect-ratio: 16 / 9; overflow: hidden; --pos: 50%; background: #000; user-select: none; }
+  .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .compare .avant { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .compare .trait-v { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 1px; background: var(--or-clair); pointer-events: none; }
+  .compare .poignee { position: absolute; top: 50%; left: var(--pos); width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; border: 1px solid var(--or-clair); background: rgba(9,9,10,.7); pointer-events: none; display: grid; place-items: center; color: var(--or-clair); font-size: 15px; letter-spacing: .2em; }
+  .compare .etiq { position: absolute; bottom: 24px; font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: #fbf7ee; background: rgba(9,9,10,.6); padding: 9px 15px; pointer-events: none; }
+  .compare .etiq.g { left: 24px; } .compare .etiq.d { right: 24px; }
+  .compare input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .legende { margin: 20px 0 0; font-size: 14px; color: #8e8778; }
+
+  /* Galerie horizontale */
+  .galerie { padding: 0; height: 100vh; height: 100svh; min-height: 600px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+  .galerie .tete { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 44px; }
+  .galerie .tete h2 { font-size: clamp(34px, 4.4vw, 62px); }
+  .galerie .compteur { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 26px; color: var(--or); white-space: nowrap; }
+  .rail { display: flex; gap: 22px; padding: 0 40px; will-change: transform; }
+  .rail figure { margin: 0; flex: 0 0 auto; height: min(58vh, 560px); position: relative; overflow: hidden; background: #d9d0be; }
+  .rail img { height: 100%; width: auto; max-width: none; }
+  .rail figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 50px 24px 20px; display: flex; justify-content: space-between; font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: #fbf7ee; background: linear-gradient(180deg, transparent, rgba(9,9,10,.74)); }
+
+  /* Chiffres */
+  .chiffres { padding: 120px 0; }
+  .chiffres .trois { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ligne-sombre); }
+  .chiffre { padding: 54px 40px 10px 0; border-right: 1px solid var(--ligne-sombre); margin-right: 40px; }
+  .chiffre:last-child { border-right: 0; margin-right: 0; }
+  .chiffre .n { font-family: "Cormorant Garamond", serif; font-size: clamp(84px, 11vw, 168px); line-height: .9; color: var(--or-clair); display: block; letter-spacing: -.03em; }
+  .chiffre p { margin: 18px 0 0; max-width: 24ch; color: #c2bbad; font-size: 17px; }
+
+  /* Services */
+  .services { margin-top: 70px; border-top: 1px solid var(--ligne); }
+  .service { display: grid; grid-template-columns: 90px 1fr 1.2fr 40px; gap: 30px; align-items: center; padding: 40px 0; border-bottom: 1px solid var(--ligne); position: relative; transition: padding .4s cubic-bezier(.2,.7,.2,1); }
+  .service::before { content: ""; position: absolute; left: 0; right: 100%; bottom: -1px; height: 1px; background: var(--or); transition: right .6s cubic-bezier(.2,.7,.2,1); }
+  .service:hover { padding-left: 18px; } .service:hover::before { right: 0; }
+  .service .no { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 24px; color: var(--or); }
+  .service h3 { font-size: clamp(30px, 3.3vw, 48px); color: var(--encre); margin: 0; line-height: 1.05; }
+  .service p { margin: 0; font-size: 17px; }
+  .service .fleche { color: var(--or); font-size: 22px; transition: transform .4s; }
+  .service:hover .fleche { transform: translateX(8px); }
+
+  /* Contact */
+  .contact { background: var(--noir); color: #b9b2a4; padding: 170px 0 120px; }
+  .contact h2 { color: #fbf7ee; font-size: clamp(46px, 7.6vw, 118px); line-height: .98; }
+  .contact h2 i { color: var(--or-clair); }
+  .courriel { display: inline-block; margin-top: 54px; font-family: "Cormorant Garamond", serif; font-size: clamp(26px, 3.6vw, 52px); color: #fbf7ee; text-decoration: none; border-bottom: 1px solid var(--or-clair); padding-bottom: 6px; transition: color .3s; }
+  .courriel:hover { color: var(--or-clair); }
+  .coordonnees { display: grid; grid-template-columns: 1fr 1.6fr; gap: 50px; margin-top: 110px; padding-top: 46px; border-top: 1px solid var(--ligne-sombre); font-size: 15.5px; }
+  .coordonnees h4 { margin: 0 0 12px; font-family: "Jost", sans-serif; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--or-clair); font-weight: 400; }
+  .coordonnees p { margin: 0 0 10px; color: #a8a193; }
+  .coordonnees p strong { color: #e9e2d4; font-weight: 400; }
+
+  footer { background: var(--noir); color: #6f695d; padding: 0 0 46px; font-size: 13.5px; overflow: hidden; }
+  footer .geant { display: block; width: min(92%, 1500px); margin: 0 auto; opacity: .16; }
+  footer .bas { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--ligne-sombre); margin-top: 60px; padding-top: 26px; }
+  footer p { margin: 0; max-width: 78ch; }
+  footer .devise { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 19px; color: var(--or-clair); }
+
+  /* Apparition */
+  html.js .rev { opacity: 0; transform: translateY(34px); }
+
+  @media (max-width: 980px) {
+    section { padding: 110px 0; }
+    .battements { min-height: 230px; }
+    .entete { grid-template-columns: 1fr; gap: 30px; margin-bottom: 46px; }
+    .service { grid-template-columns: 50px 1fr 30px; row-gap: 12px; }
+    .service p { grid-column: 2 / 3; }
+    .chiffres .trois { grid-template-columns: 1fr; }
+    .paire { grid-template-columns: 1fr; gap: 6px; padding: 26px 0; }
+    .paire .vers { text-align: left; font-size: 18px; }
+    .chiffre { border-right: 0; margin-right: 0; border-bottom: 1px solid var(--ligne-sombre); padding: 40px 0 34px; }
+    .coordonnees { grid-template-columns: 1fr; gap: 34px; }
+    .methode::after { background: linear-gradient(180deg, rgba(9,9,10,0) 0%, rgba(9,9,10,.2) 38%, rgba(9,9,10,.96) 62%); }
+    .methode .contenu { justify-content: flex-end; padding-bottom: 60px; max-width: none; }
+    .methode h2 { margin-bottom: 26px; }
+    .etapes { min-height: 250px; }
+    .afficheur { top: 96px; bottom: auto; right: 22px; }
+    .afficheur .compte { font-size: 54px; } .afficheur .compte small { font-size: 20px; }
+  }
+  @media (max-width: 640px) {
+    .cadre { padding: 0 22px; }
+    section { padding: 84px 0; }
+    .haut .cadre { min-height: 70px; }
+    .marque .symbole { height: 30px; } .marque .mot { height: 12px; }
+    nav a { margin-left: 16px; font-size: 10px; letter-spacing: .14em; }
+    nav a.masque { display: none; }
+    .hero .cadre { padding-top: 124px; padding-bottom: 96px; }
+    .hero .intro { font-size: 17.5px; margin-bottom: 30px; }
+    .bouton { display: block; text-align: center; padding: 17px 20px; }
+    .bouton.trait { margin: 12px 0 0; }
+    .bandeau .cadre { font-size: 9px; letter-spacing: .18em; gap: 10px; }
+    .bandeau span.masque { display: none; }
+    .defilant span { font-size: 22px; padding: 0 18px; } .defilant span::after { margin-left: 36px; }
+    .compare { aspect-ratio: 4 / 3; }
+    .rail { padding: 0 22px; gap: 12px; }
+    .rail figure { height: 46vh; }
+    .galerie { height: auto; min-height: 0; padding: 84px 0; }
+    .galerie .rail-fenetre { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .galerie .rail figure { scroll-snap-align: center; }
+    .etape p { font-size: 16.5px; }
+    .these-contenu { padding-top: 13vh; }
+    .these-bas { padding: 0 22px; bottom: 26px; }
+    .ecart .n { font-size: 54px; }
+    .ecart { font-size: 9.5px; letter-spacing: .2em; max-width: 60%; }
+    .pas i { width: 26px; }
+    .contact { padding: 110px 0 80px; }
+    .coordonnees { margin-top: 70px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .defilant .piste { animation: none; }
+    html.js .rev { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rideau" id="rideau" aria-hidden="true"><img src="img/symbole.png" alt=""></div>
+<div class="curseur" id="curseur-rond" aria-hidden="true"></div>
+
+<header class="haut" id="entete">
+  <div class="cadre">
+    <a class="marque" href="#haut" aria-label="Metcalf, retour en haut">
+      <img class="symbole" src="img/symbole.png" alt="">
+      <img class="mot" src="img/mot-metcalf.png" alt="Metcalf">
+    </a>
+    <nav aria-label="Navigation principale">
+      <a href="#methode">Méthode</a>
+      <a class="masque" href="#preuve">Preuve</a>
+      <a class="masque" href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+  <section class="hero">
+    <div class="fond" role="img" aria-label="Résidence transformée sous la direction de Metcalf, façade éclairée à la tombée du jour"></div>
+    <div class="cadre">
+      <p class="sur rev">La direction de projets immobiliers, réinventée</p>
+      <h1>
+        <span class="ligne"><span>L'industrie bâtit encore</span></span>
+        <span class="ligne"><span><i>à l'aveugle.</i></span></span>
+      </h1>
+      <p class="intro rev">Des chantiers suivis au téléphone, des retards découverts trop tard, des coûts compris à la fin. <b>Metcalf lui rend la vue :</b> un suivi précis de chaque projet, chaque jour, piloté par l'intelligence artificielle.</p>
+      <div class="rev">
+        <a class="bouton" href="#methode">Voir la méthode</a>
+        <a class="bouton trait" href="#contact">Écrire à Metcalf</a>
+      </div>
+    </div>
+    <div class="bandeau">
+      <div class="cadre">
+        <span><b>Suivi</b> quotidien</span>
+        <span class="masque">Intelligence artificielle</span>
+        <span class="masque">Une preuve à chaque étape</span>
+        <span>Montréal · Québec</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="defilant" aria-hidden="true">
+    <div class="piste">
+      <span>Suivi précis</span><span>Intelligence artificielle</span><span>Une preuve à chaque étape</span><span>Coûts en continu</span><span>Décisions humaines</span><span>Une industrie à réinventer</span>
+      <span>Suivi précis</span><span>Intelligence artificielle</span><span>Une preuve à chaque étape</span><span>Coûts en continu</span><span>Décisions humaines</span><span>Une industrie à réinventer</span>
+    </div>
+  </div>
+
+  <section class="these" id="these">
+    <div class="scene"><canvas id="nuage" aria-hidden="true"></canvas></div>
+    <div class="cadre these-contenu">
+      <p class="sur">La thèse</p>
+      <div class="battements">
+        <p class="battement actif">Un projet ne dérape jamais <i>d'un coup.</i></p>
+        <p class="battement">Il dérive, un jour à la fois, dans ce que <i>personne ne mesure.</i></p>
+        <p class="battement">On demande où en sont les travaux. On reçoit <i>une opinion.</i></p>
+        <p class="battement">Nous avons remplacé l'opinion <i>par la preuve.</i></p>
+      </div>
+    </div>
+    <div class="these-bas" aria-hidden="true">
+      <div class="ecart"><span class="n" id="ecart">0 %</span><span id="ecart-note">Écart avec le plan</span></div>
+      <div class="pas" id="these-pas"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section class="contraste ivoire" id="contraste">
+    <div class="cadre">
+      <div class="entete rev">
+        <div>
+          <p class="sur">Le changement</p>
+          <h2>Hier. <i>Aujourd'hui.</i></h2>
+        </div>
+        <p class="chapeau">L'industrie n'a pas manqué de talent, elle a manqué d'instruments. Voici ce que change un suivi précis, tenu chaque jour.</p>
+      </div>
+      <div class="paires">
+        <div class="paire rev"><p class="hier">On apprend le retard à la réunion de chantier.</p><span class="vers" aria-hidden="true">→</span><p class="auj">On voit l'écart le jour même.</p></div>
+        <div class="paire rev"><p class="hier">On croit ce qui est déclaré terminé.</p><span class="vers" aria-hidden="true">→</span><p class="auj">On accepte ce qui est prouvé.</p></div>
+        <div class="paire rev"><p class="hier">On comprend les coûts à la fin.</p><span class="vers" aria-hidden="true">→</span><p class="auj">On suit chaque dollar en continu.</p></div>
+        <div class="paire rev"><p class="hier">Le propriétaire appelle pour savoir.</p><span class="vers" aria-hidden="true">→</span><p class="auj">Le propriétaire sait avant de demander.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="methode" id="methode">
+    <div class="scene"><canvas id="batiment" aria-hidden="true"></canvas></div>
+    <div class="cadre contenu">
+      <p class="sur">La méthode</p>
+      <h2>Un immeuble, lu <i>morceau par morceau.</i></h2>
+      <div class="etapes" id="etapes">
+        <div class="etape active">
+          <span class="no">I</span>
+          <h3>Observer</h3>
+          <p>Voici un de nos projets : un immeuble de trois niveaux, découpé en 55 morceaux et 14 étapes. Chaque jour, notre poste de commande lit les photos et les comptes rendus du terrain, sans rien oublier.</p>
+        </div>
+        <div class="etape">
+          <span class="no">II</span>
+          <h3>Comparer</h3>
+          <p>Chaque morceau est rapproché du plan, de l'échéancier et du budget. Un écart n'attend plus la réunion de chantier pour apparaître.</p>
+        </div>
+        <div class="etape">
+          <span class="no">III</span>
+          <h3>Décider</h3>
+          <p>L'intelligence artificielle prépare les options, chiffrées. La décision reste humaine : quelqu'un la prend, et en répond.</p>
+        </div>
+        <div class="etape">
+          <span class="no">IV</span>
+          <h3>Vérifier</h3>
+          <p>Un morceau n'est terminé que lorsqu'il est prouvé, puis vu en personne. Alors seulement, il s'allume.</p>
+        </div>
+      </div>
+      <div class="jalons" id="jalons" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="afficheur" aria-hidden="true">
+      <span class="compte"><span id="compte">00</span><small> / 55</small></span>
+      Morceaux vérifiés
+      <span class="etat" id="etat">Étape 01 / 14 · Démolition</span>
+      <span class="demo">Projet réel, rendu anonyme</span>
+    </div>
+  </section>
+
+  <section class="sombre" id="preuve">
+    <div class="cadre">
+      <div class="entete rev">
+        <div>
+          <p class="sur">La preuve</p>
+          <h2>Une méthode ne vaut que par <i>ce qu'elle livre.</i></h2>
+        </div>
+        <p class="chapeau">Cette résidence a été reprise à l'ossature et rendue clés en main, sous la direction de Metcalf. Glissez le curseur : à gauche le premier jour, à droite le dernier.</p>
+      </div>
+      <div class="rev">
+        <div class="onglets" role="tablist" aria-label="Pièce à comparer">
+          <button role="tab" aria-selected="true" data-avant="img/avant-etage.jpg" data-apres="img/cuisine.jpg" data-nom="aire ouverte et cuisine">Aire ouverte</button>
+          <button role="tab" aria-selected="false" data-avant="img/avant-sdb.jpg" data-apres="img/sdb.jpg" data-nom="salle de bain">Salle de bain</button>
+          <button role="tab" aria-selected="false" data-avant="img/avant-chambre.jpg" data-apres="img/chambre.jpg" data-nom="chambre">Chambre</button>
+        </div>
+        <div class="compare" id="compare">
+          <img class="apres" id="img-apres" src="img/cuisine.jpg" alt="Après : aire ouverte et cuisine">
+          <img class="avant" id="img-avant" src="img/avant-etage.jpg" alt="Avant : aire ouverte et cuisine">
+          <div class="trait-v"></div>
+          <div class="poignee" aria-hidden="true">‹›</div>
+          <span class="etiq g">Premier jour</span>
+          <span class="etiq d">Dernier jour</span>
+          <input type="range" min="0" max="100" value="50" step="0.1" aria-label="Comparer le premier et le dernier jour" id="glissiere">
+        </div>
+        <p class="legende">Projet dirigé par Metcalf. Photos prises avant le début des travaux et à la remise.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="galerie ivoire" id="galerie">
+    <div class="cadre tete">
+      <div>
+        <p class="sur">Le résultat</p>
+        <h2>Le détail <i>ne se délègue pas.</i></h2>
+      </div>
+      <span class="compteur" id="compteur" aria-hidden="true">01 / 08</span>
+    </div>
+    <div class="rail-fenetre">
+      <div class="rail" id="rail">
+        <figure><img src="img/ext-soir.jpg" alt="Façade de la résidence, à la tombée du jour"><figcaption><span>Façade</span><span>01</span></figcaption></figure>
+        <figure><img src="img/entree.jpg" alt="Entrée et escalier, garde-corps noir"><figcaption><span>Entrée</span><span>02</span></figcaption></figure>
+        <figure><img src="img/ilot.jpg" alt="Îlot de cuisine, bois clair et laiton"><figcaption><span>Cuisine</span><span>03</span></figcaption></figure>
+        <figure><img src="img/sejour.jpg" alt="Séjour ouvert sur la cuisine"><figcaption><span>Séjour</span><span>04</span></figcaption></figure>
+        <figure><img src="img/vanite.jpg" alt="Meuble-lavabo double et miroir éclairé"><figcaption><span>Salle de bain</span><span>05</span></figcaption></figure>
+        <figure><img src="img/bain.jpg" alt="Bain autoportant devant un mur de céramique"><figcaption><span>Bain</span><span>06</span></figcaption></figure>
+        <figure><img src="img/terrasse.jpg" alt="Terrasse arrière et jardin"><figcaption><span>Terrasse</span><span>07</span></figcaption></figure>
+        <figure><img src="img/aerien.jpg" alt="Vue aérienne de la propriété"><figcaption><span>Le terrain</span><span>08</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="chiffres sombre">
+    <div class="cadre">
+      <div class="trois">
+        <div class="chiffre rev"><span class="n" data-vers="31">31</span><p>agents d'intelligence artificielle veillent chaque jour sur nos projets.</p></div>
+        <div class="chiffre rev"><span class="n" data-vers="55">55</span><p>morceaux suivis un à un dans un seul immeuble, du garage au toit.</p></div>
+        <div class="chiffre rev"><span class="n" data-vers="0">0</span><p>étape acceptée sur parole. Ce qui est terminé est prouvé.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="clair" id="services">
+    <div class="cadre">
+      <div class="entete rev" style="margin-bottom:0">
+        <div>
+          <p class="sur">Services</p>
+          <h2>Quatre façons de <i>travailler ensemble.</i></h2>
+        </div>
+        <p class="chapeau">Pour les propriétaires, les gestionnaires d'immeubles et les hôteliers de la région de Montréal qui veulent un seul répondant, et des réponses appuyées sur des faits.</p>
+      </div>
+      <div class="services">
+        <div class="service rev">
+          <span class="no">01</span><h3>Conseil</h3>
+          <p>Avant d'engager un dollar : faisabilité, portée, budget, échéancier. Un avis indépendant, appuyé sur des chiffres.</p>
+          <span class="fleche" aria-hidden="true">→</span>
+        </div>
+        <div class="service rev">
+          <span class="no">02</span><h3>Direction de projet</h3>
+          <p>Nous prenons le projet en main de bout en bout, et nous en répondons.</p>
+          <span class="fleche" aria-hidden="true">→</span>
+        </div>
+        <div class="service rev">
+          <span class="no">03</span><h3>Coordination des spécialistes</h3>
+          <p>Sélection des entrepreneurs spécialisés, contrats, assurances et attestations vérifiées, interventions ordonnancées.</p>
+          <span class="fleche" aria-hidden="true">→</span>
+        </div>
+        <div class="service rev">
+          <span class="no">04</span><h3>Contrôle et remise</h3>
+          <p>Coûts, avancement, qualité : suivis en continu, restitués clairement. Programmes de remise en état d'unités pour gestionnaires et hôteliers.</p>
+          <span class="fleche" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="cadre">
+      <p class="sur rev">Contact</p>
+      <h2 class="rev">Votre projet mérite <i>d'être mesuré.</i></h2>
+      <a class="courriel rev" href="mailto:info@groupemetcalf.com">info@groupemetcalf.com</a>
+      <div class="coordonnees rev">
+        <div>
+          <h4>Bureau</h4>
+          <p><strong>Groupe Metcalf Inc.</strong><br>2001, boulevard Robert-Bourassa<br>Bureau 1700<br>Montréal (Québec) H3A 2A6</p>
+        </div>
+        <div id="messages-texte">
+          <h4>Messages texte</h4>
+          <p>Groupe Metcalf communique par message texte avec son équipe, ses partenaires et ses clients pour le suivi des projets : horaires, comptes rendus, rendez-vous et rappels de facture.</p>
+          <p>Aucune publicité, aucun numéro partagé avec des tiers. Pour ne plus recevoir nos messages, répondez ARRÊT ou STOP en tout temps. Des frais de messagerie de votre fournisseur peuvent s'appliquer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <img class="geant" src="img/mot-metcalf.png" alt="">
+  <div class="cadre">
+    <div class="bas">
+      <p class="devise">Élever la rénovation au rang d'art.</p>
+      <p>© 2026 Groupe Metcalf Inc. Licence RBQ 5854-2408-01.</p>
+    </div>
+    <p lang="en" style="margin-top:18px">Groupe Metcalf Inc. is a Montreal-based real estate project management firm bringing precise, daily, AI-driven project tracking to construction. Specialized trades coordinated by Metcalf. Licence RBQ 5854-2408-01. Contact: info@groupemetcalf.com.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  var doc = document.documentElement;
+  var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var aGsap = !!(window.gsap && window.ScrollTrigger) && !calme;
+  var petit = window.matchMedia('(max-width: 640px)').matches;
+  var rideau = document.getElementById('rideau');
+  if (aGsap) doc.classList.add('js'); else if (rideau) rideau.style.display = 'none';
+
+  /* En-tête */
+  var entete = document.getElementById('entete');
+  function surDefilement() { entete.classList.toggle('plein', window.scrollY > 80); }
+  window.addEventListener('scroll', surDefilement, { passive: true }); surDefilement();
+
+  /* Ancres en douceur */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var c = document.querySelector(a.getAttribute('href'));
+      if (!c) return;
+      e.preventDefault();
+      var y = c.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: y, behavior: calme ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* Thèse : du brouillard à la preuve */
+  var PLAN = [[0,0,2.2,[[[1.1,38.4],[22.6,38.4],[22.6,74.8],[1.1,74.8]]]],[0,0,2.2,[[[22.6,65.3],[27.2,65.3],[27.2,59.9],[34.5,59.9],[34.5,65.3],[32.2,65.3],[32.2,74.8],[22.6,74.8]]]],[0,0,2.2,[[[34.7,38.4],[74.1,38.4],[74.1,74.8],[32.4,74.8],[32.4,65.6],[34.7,65.6]]]],[0,0,2.2,[[[57.9,29.5],[74.1,29.5],[74.1,37.9],[57.9,37.9]]]],[0,0,2.2,[[[50.4,29.5],[57.6,29.5],[57.6,37.9],[50.4,37.9]]]],[0,0,2.2,[[[22.6,49.8],[27.2,49.8],[27.2,65.1],[22.6,65.1]]]],[0,0,2.2,[[[22.8,38.4],[34.5,38.4],[34.5,59.7],[27.4,59.7],[27.4,49.8],[31.7,49.8],[31.7,44.1],[22.8,44.1]]]],[0,0,2.2,[[[44.2,26.6],[50.2,26.6],[50.2,37.9],[44.2,37.9]]]],[0,0,2.2,[[[25.7,26.6],[44.0,26.6],[44.0,30.8],[31.5,30.8]]]],[0,0,2.2,[[[50.4,22.0],[57.6,22.0],[57.6,25.3],[50.4,25.3]]]],[0,0,2.2,[[[50.4,25.5],[57.6,25.5],[57.6,29.2],[50.4,29.2]]]],[0,0,2.2,[[[57.9,17.2],[74.1,17.2],[74.1,29.2],[57.9,29.2]]]],[0,0,2.2,[[[44.0,1.0],[74.1,1.0],[74.1,16.9],[44.0,16.9]]]],[0,0,2.2,[[[50.4,17.2],[57.6,17.2],[57.6,21.7],[50.4,21.7]]]],[0,0,2.2,[[[25.7,1.0],[43.7,1.0],[43.7,17.2],[50.2,17.2],[50.2,26.3],[25.7,26.3]]]],[0,0,2.2,[[[1.1,1.0],[25.4,1.0],[25.4,26.6],[31.2,31.0],[31.2,38.0],[22.8,38.0],[22.8,29.2],[1.1,29.2]]]],[0,0,2.2,[[[1.1,29.5],[22.6,29.5],[22.6,38.0],[1.1,38.0]]]],[0,0,1.2,[[[31.5,31.0],[44.0,31.0],[44.0,38.0],[31.5,38.0]]]],[0,1,5,[[[22.8,44.4],[31.5,44.4],[31.5,49.6],[22.8,49.6]]]],[1,0,2.2,[[[17.7,33.9],[25.4,33.9],[25.4,38.3],[36.4,38.3],[36.4,43.7],[21.9,43.7],[21.9,49.1],[17.7,49.1]]]],[1,0,2.2,[[[32.8,44.0],[37.2,44.0],[37.2,48.9],[32.8,48.9]]]],[1,0,2.2,[[[27.2,49.1],[37.2,49.1],[37.2,73.7],[22.8,73.7],[22.8,59.3],[27.2,59.3]]]],[1,0,2.2,[[[37.7,49.4],[44.1,49.4],[44.1,58.2],[37.7,58.2]]]],[1,0,2.2,[[[37.7,45.7],[51.0,45.7],[51.0,49.1],[37.7,49.1]]]],[1,0,2.2,[[[37.5,38.4],[51.0,38.4],[51.0,45.4],[37.5,45.4]]]],[1,0,2.2,[[[44.4,49.4],[51.0,49.4],[51.0,58.2],[44.4,58.2]]]],[1,0,2.2,[[[37.7,58.5],[51.0,58.5],[51.0,73.7],[37.7,73.7]]]],[1,0,2.2,[[[51.5,38.4],[74.1,38.4],[74.1,73.7],[51.5,73.7]]]],[1,0,2.2,[[[51.5,34.1],[56.8,34.1],[56.8,38.0],[51.5,38.0]]]],[1,0,2.2,[[[57.1,34.1],[74.1,34.1],[74.1,38.0],[57.1,38.0]]]],[1,0,2.2,[[[60.1,19.8],[74.1,19.8],[74.1,33.7],[60.1,33.7]]]],[1,0,2.2,[[[60.1,1.0],[74.1,1.0],[74.1,19.5],[60.1,19.5]]]],[1,0,2.2,[[[53.2,1.0],[59.7,1.0],[59.7,14.4],[53.2,14.4]]]],[1,0,2.2,[[[1.0,1.0],[30.4,1.0],[30.4,6.5],[1.0,6.5]],[[1.0,6.5],[5.0,6.5],[5.0,24.7],[1.0,24.7]],[[25.3,6.5],[30.4,6.5],[30.4,24.7],[25.3,24.7]],[[1.0,24.7],[30.4,24.7],[30.4,29.0],[1.0,29.0]],[[17.7,29.2],[59.7,29.2],[59.7,33.6],[17.7,33.6]],[[56.3,19.6],[59.7,19.6],[59.7,29.2],[56.3,29.2]]]],[1,0,2.2,[[[52.8,19.6],[55.9,19.6],[55.9,27.6],[52.8,27.6]]]],[1,0,2.2,[[[49.3,19.6],[52.5,19.6],[52.5,27.6],[49.3,27.6]]]],[1,0,2.2,[[[46.3,14.7],[59.7,14.7],[59.7,19.3],[46.3,19.3]]]],[1,0,2.2,[[[46.3,1.0],[52.8,1.0],[52.8,14.4],[46.3,14.4]]]],[1,0,2.2,[[[30.8,1.0],[45.9,1.0],[45.9,19.5],[30.8,19.5]]]],[1,0,2.2,[[[30.8,19.8],[49.0,19.8],[49.0,29.0],[30.8,29.0]]]],[1,0,2.2,[[[25.7,33.9],[31.8,33.9],[31.8,38.0],[25.7,38.0]]]],[1,0,2.2,[[[11.2,29.3],[17.3,29.3],[17.3,34.9],[11.2,34.9]]]],[1,0,2.2,[[[1.0,29.3],[10.9,29.3],[10.9,34.9],[1.0,34.9]]]],[1,0,2.2,[[[1.0,35.2],[17.3,35.2],[17.3,49.1],[1.0,49.1]]]],[1,0,2.2,[[[11.4,49.4],[21.7,49.4],[21.7,59.9],[11.4,59.9]]]],[1,0,2.2,[[[1.0,49.4],[11.1,49.4],[11.1,60.2],[21.7,60.2],[21.7,73.7],[1.0,73.7]]]],[1,0,1.2,[[[32.1,33.9],[51.1,33.9],[51.1,38.0],[32.1,38.0]]]],[1,0,1.2,[[[22.2,49.4],[26.9,49.4],[26.9,59.1],[22.2,59.1]]]],[1,1,5,[[[27.1,44.1],[32.5,44.1],[32.5,48.9],[27.1,48.9]]]],[2,0,0.8,[[[0,0],[75,0],[75,75],[0,75]]]],[2,1,1.6,[[[9,9],[15,9],[15,15],[9,15]]]],[2,1,1.6,[[[9,21],[15,21],[15,27],[9,27]]]],[2,1,1,[[[30,4],[62,4],[62,5.5],[30,5.5]]]],[2,1,3,[[[48,12],[70,12],[70,20],[48,20]]]],[2,1,1,[[[26,34],[70,34],[70,68],[26,68]]]]];
+  var mots = [];
+  var battements = document.querySelectorAll('#these .battement'), pasThese = document.querySelectorAll('#these-pas i');
+  var ecartEl = document.getElementById('ecart'), ecartNote = document.getElementById('ecart-note');
+  function borne(v) { return Math.max(0, Math.min(1, v)); }
+  function doux(v) { v = borne(v); return v * v * (3 - 2 * v); }
+  var progThese = 0;
+  function theseMaj(pr) {
+    pr = borne(pr); progThese = pr;
+    var i = Math.min(3, Math.floor(pr * 4));
+    battements.forEach(function (b, k) { b.classList.toggle('actif', k === i); });
+    pasThese.forEach(function (b, k) { b.classList.toggle('on', k <= i); });
+    var txt, note = 'Écart avec le plan';
+    if (pr < 0.12) { txt = '0 %'; }
+    else if (pr < 0.5) { txt = Math.round(doux((pr - 0.12) / 0.38) * 23) + ' %'; }
+    else if (pr < 0.76) { txt = '?'; note = 'Écart avec le plan : personne ne sait'; }
+    else { txt = Math.round((1 - doux((pr - 0.76) / 0.15)) * 23) + ' %'; note = 'Écart mesuré chaque jour'; }
+    ecartEl.textContent = txt; ecartNote.textContent = note;
+  }
+  function creerNuage(canvas) {
+    if (!window.THREE) return null;
+    var rendu;
+    try { rendu = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (e) { return null; }
+    rendu.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    var scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(34, 1, 0.1, 100), groupe = new THREE.Group();
+    scene.add(groupe);
+    var N = petit ? 5200 : 9500;
+    /* points cibles : les arêtes de l'immeuble */
+    var cibles = [], S = 0.112, HN = 0.56, EC = 0.95, bases = [0, 2.2 * HN + EC, 2 * (2.2 * HN + EC)];
+    PLAN.forEach(function (m) {
+      var niv = m[0], couche = m[1], h = m[2];
+      var haut = niv === 2 ? (couche ? Math.min(h, 1.6) * 0.3 : 0.12) : Math.min(h, 2.2) * HN;
+      var base = bases[niv] + (niv === 2 && couche ? 0.12 : 0);
+      m[3].forEach(function (an) {
+        for (var k = 0; k < an.length; k++) {
+          var A = an[k], B = an[(k + 1) % an.length], dx = B[0] - A[0], dy = B[1] - A[1];
+          var n = Math.max(1, Math.round(Math.sqrt(dx * dx + dy * dy) / 0.8));
+          for (var q = 0; q < n; q++) {
+            var f = q / n, px = (A[0] + dx * f - 37.5) * S, pz = -(A[1] + dy * f - 37.5) * S;
+            cibles.push([px, base, pz]); cibles.push([px, base + haut, pz]);
+          }
+          var cx = (A[0] - 37.5) * S, cz = -(A[1] - 37.5) * S;
+          cibles.push([cx, base + haut * 0.33, cz]); cibles.push([cx, base + haut * 0.66, cz]);
+        }
+      });
+    });
+    var milieu = (bases[2] + 0.5) / 2;
+    var filaire = new THREE.Group(), matFil = new THREE.LineBasicMaterial({ color: 0xe6cf9a, transparent: true, opacity: 0 });
+    PLAN.forEach(function (m) {
+      var niv = m[0], couche = m[1], h = m[2];
+      var haut = niv === 2 ? (couche ? Math.min(h, 1.6) * 0.3 : 0.12) : Math.min(h, 2.2) * HN;
+      var base = bases[niv] + (niv === 2 && couche ? 0.12 : 0);
+      m[3].forEach(function (an) {
+        var forme = new THREE.Shape();
+        an.forEach(function (pt, k) { var fx = (pt[0] - 37.5) * S, fy = (pt[1] - 37.5) * S; if (k === 0) forme.moveTo(fx, fy); else forme.lineTo(fx, fy); });
+        forme.closePath();
+        var g = new THREE.ExtrudeGeometry(forme, { depth: haut, bevelEnabled: false }); g.rotateX(-Math.PI / 2);
+        var l = new THREE.LineSegments(new THREE.EdgesGeometry(g), matFil); l.position.y = base - milieu - 0.5; filaire.add(l);
+      });
+    });
+    groupe.add(filaire);
+    var p0 = new Float32Array(N * 3), p1 = new Float32Array(N * 3), p2 = new Float32Array(N * 3), p3 = new Float32Array(N * 3);
+    var alea = new Float32Array(N), phase = new Float32Array(N), pos = new Float32Array(N * 3);
+    for (var i = 0; i < N; i++) {
+      var t = Math.random(), x = -8 + 16 * t, o = i * 3;
+      p0[o] = x; p0[o + 1] = (Math.random() - 0.5) * 0.06; p0[o + 2] = (Math.random() - 0.5) * 0.06;
+      p1[o] = x; p1[o + 1] = -3.3 * t * t + (Math.random() - 0.5) * (0.08 + 1.5 * t * t); p1[o + 2] = (Math.random() - 0.5) * (0.08 + 1.9 * t * t);
+      var r = Math.cbrt(Math.random()), th = Math.random() * 6.2832, ph = Math.acos(2 * Math.random() - 1);
+      p2[o] = 8.2 * r * Math.sin(ph) * Math.cos(th); p2[o + 1] = 3.4 * r * Math.cos(ph) - 0.4; p2[o + 2] = 4.2 * r * Math.sin(ph) * Math.sin(th);
+      var c = cibles[Math.floor(Math.random() * cibles.length)];
+      p3[o] = c[0] + (Math.random() - 0.5) * 0.02; p3[o + 1] = c[1] - milieu - 0.5 + (Math.random() - 0.5) * 0.02; p3[o + 2] = c[2] + (Math.random() - 0.5) * 0.02;
+      alea[i] = Math.random(); phase[i] = Math.random() * 6.2832;
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    var toile = document.createElement('canvas'); toile.width = toile.height = 64;
+    var ctx = toile.getContext('2d'), deg = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    deg.addColorStop(0, 'rgba(255,255,255,1)'); deg.addColorStop(0.35, 'rgba(255,255,255,.55)'); deg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = deg; ctx.fillRect(0, 0, 64, 64);
+    var mat = new THREE.PointsMaterial({ size: petit ? 0.1 : 0.085, map: new THREE.CanvasTexture(toile), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xd6bd84, opacity: 0.95, sizeAttenuation: true });
+    var points = new THREE.Points(geo, mat); points.frustumCulled = false; groupe.add(points);
+    var repereGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-8, 0, 0), new THREE.Vector3(8, 0, 0)]);
+    var repere = new THREE.Line(repereGeo, new THREE.LineBasicMaterial({ color: 0x8a8068, transparent: true, opacity: 0.5 }));
+    groupe.add(repere);
+    var visible = true;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(canvas);
+    function taille() {
+      var rc = canvas.parentElement.getBoundingClientRect();
+      rendu.setSize(rc.width, rc.height, false);
+      cam.aspect = rc.width / Math.max(1, rc.height);
+      cam.position.set(0, 1.2, 21); cam.lookAt(0, 0, 0);
+      cam.setViewOffset(rc.width, rc.height, 0, -rc.height * 0.15, rc.width, rc.height);
+      cam.updateProjectionMatrix();
+      groupe.scale.setScalar(Math.min(1, cam.aspect / 1.55));
+    }
+    window.addEventListener('resize', taille); taille();
+    var lisseP = 0, tailleBase = petit ? 0.1 : 0.085;
+    function image(tps) {
+      requestAnimationFrame(image);
+      if (!visible) return;
+      lisseP += (progThese - lisseP) * 0.09;
+      dessiner(lisseP, tps);
+    }
+    function dessiner(pr, tps) {
+      var a = doux((pr - 0.1) / 0.3), b = doux((pr - 0.42) / 0.26), tout = doux((pr - 0.74) / 0.2);
+      for (var i = 0; i < N; i++) {
+        var o = i * 3, ci = doux((pr - 0.72 - alea[i] * 0.08) / 0.13), w = 0.025 + 0.55 * b * (1 - ci), fz = phase[i];
+        for (var d = 0; d < 3; d++) {
+          var v = p0[o + d] + (p1[o + d] - p0[o + d]) * a;
+          v += (p2[o + d] - v) * b;
+          v += (p3[o + d] - v) * ci;
+          pos[o + d] = v + Math.sin(tps * (0.0006 - d * 0.0001) + fz * (1 + d * 0.7)) * w;
+        }
+      }
+      geo.attributes.position.needsUpdate = true;
+      repere.material.opacity = 0.5 * (1 - b);
+      mat.size = tailleBase * (1 + 0.9 * b * (1 - tout) + 0.7 * tout);
+      matFil.opacity = doux((pr - 0.85) / 0.12) * 0.55;
+      groupe.rotation.y = b * 0.3 * (1 - tout) + tout * (-0.72 + Math.sin(tps * 0.00022) * 0.22);
+      groupe.rotation.x = tout * 0.36;
+      groupe.position.y = -tout * 1.5;
+      rendu.render(scene, cam);
+    }
+    requestAnimationFrame(image);
+    return { dessiner: dessiner, caler: function () { lisseP = progThese; dessiner(lisseP, performance.now()); } };
+  }
+  window.__nuage = creerNuage(document.getElementById('nuage'));
+  theseMaj(0);
+
+  /* Comparateur */
+  var compare = document.getElementById('compare'), glissiere = document.getElementById('glissiere');
+  function regler() { compare.style.setProperty('--pos', glissiere.value + '%'); }
+  glissiere.addEventListener('input', regler); regler();
+  var avant = document.getElementById('img-avant'), apres = document.getElementById('img-apres');
+  document.querySelectorAll('.onglets button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.onglets button').forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+      b.setAttribute('aria-selected', 'true');
+      avant.src = b.dataset.avant; apres.src = b.dataset.apres;
+      avant.alt = 'Avant : ' + b.dataset.nom; apres.alt = 'Après : ' + b.dataset.nom;
+      glissiere.value = 50; regler();
+    });
+  });
+
+  /* Bâtiment en 3D */
+  var etapes = document.querySelectorAll('#etapes .etape'), jalons = document.querySelectorAll('#jalons i');
+  var compte = document.getElementById('compte'), etat = document.getElementById('etat');
+  var noms = ['Démolition', 'Toiture', 'Béton', 'Plomberie', 'Cloisons', 'Électricité', 'CVAC', 'Isolation', 'Gypse', 'Peinture', 'Planchers', 'Finition', 'Ascenseur', 'Solaire'];
+  var TOTAL = 55, batiment = null;
+  function avancer(p) {
+    p = Math.max(0, Math.min(1, p));
+    var i = Math.min(3, Math.floor(p * 4));
+    etapes.forEach(function (e, k) { e.classList.toggle('active', k === i); });
+    jalons.forEach(function (j, k) { j.classList.toggle('on', k <= i); });
+    var n = Math.round(p * TOTAL);
+    compte.textContent = (n < 10 ? '0' : '') + n;
+    var e = Math.min(13, Math.floor(p * 14));
+    etat.textContent = 'Étape ' + (e < 9 ? '0' : '') + (e + 1) + ' / 14 · ' + noms[e];
+    if (batiment) batiment.progres(p);
+  }
+  function creerBatiment(canvas) {
+    if (!window.THREE) return null;
+    var rendu;
+    try { rendu = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (e) { return null; }
+    rendu.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    var scene = new THREE.Scene();
+    var cam = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+    var groupe = new THREE.Group(); scene.add(groupe);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    var soleil = new THREE.DirectionalLight(0xffe6b4, 1.25); soleil.position.set(7, 11, 5); scene.add(soleil);
+    var contre = new THREE.DirectionalLight(0x8fa6c8, 0.35); contre.position.set(-8, 4, -6); scene.add(contre);
+    var OR = 0xd6bd84, pieces = [];
+    var S = 0.1, HN = 0.42, ECART = 0.78, bases = [0, 2.2 * HN + ECART, 2 * (2.2 * HN + ECART)];
+    PLAN.forEach(function (m) {
+      var niv = m[0], couche = m[1], h = m[2], pleins = [], fils = [];
+      var haut = niv === 2 ? (couche ? Math.min(h, 1.6) * 0.3 : 0.12) : Math.min(h, 2.2) * HN;
+      var base = bases[niv] + (niv === 2 && couche ? 0.12 : 0);
+      m[3].forEach(function (anneau) {
+        var forme = new THREE.Shape();
+        anneau.forEach(function (pt, k) { var x = (pt[0] - 37.5) * S, y = (pt[1] - 37.5) * S; if (k === 0) forme.moveTo(x, y); else forme.lineTo(x, y); });
+        forme.closePath();
+        var geo = new THREE.ExtrudeGeometry(forme, { depth: haut, bevelEnabled: false });
+        geo.rotateX(-Math.PI / 2);
+        var plein = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: OR, transparent: true, opacity: 0, roughness: 0.42, metalness: 0.45 }));
+        plein.visible = false; plein.position.y = base;
+        var fil = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: OR, transparent: true, opacity: 0.22 }));
+        fil.position.y = base;
+        groupe.add(plein); groupe.add(fil); pleins.push(plein); fils.push(fil);
+      });
+      pieces.push({ pleins: pleins, fils: fils, t: 0, cible: 0 });
+    });
+    var sol = new THREE.GridHelper(26, 26, 0x4a4232, 0x1f1d18); sol.position.y = -0.01; scene.add(sol);
+    groupe.position.y = 0.02;
+    var prog = 0, lisse = 0;
+    function taille() {
+      var r = canvas.parentElement.getBoundingClientRect();
+      rendu.setSize(r.width, r.height, false);
+      cam.aspect = r.width / Math.max(1, r.height); cam.updateProjectionMatrix();
+      var etroit = r.width < 980;
+      cam.position.set(13.5, etroit ? 13 : 10.5, 17.5);
+      cam.lookAt(0, 1.25, 0);
+      if (etroit) cam.setViewOffset(r.width, r.height, 0, r.height * 0.2, r.width, r.height);
+      else cam.setViewOffset(r.width, r.height, -r.width * 0.21, r.height * 0.02, r.width, r.height);
+      cam.zoom = etroit ? Math.min(1, r.width / 620) : Math.min(1.15, r.width / 1250);
+      cam.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', taille); taille();
+    function image(t) {
+      lisse += (prog - lisse) * 0.07;
+      groupe.rotation.y = -0.5 + t * 0.00007 + lisse * 1.25;
+      for (var k = 0; k < pieces.length; k++) {
+        var pc = pieces[k];
+        pc.t += (pc.cible - pc.t) * 0.09;
+        for (var q = 0; q < pc.pleins.length; q++) {
+          pc.pleins[q].visible = pc.t > 0.01;
+          pc.pleins[q].material.opacity = pc.t * 0.58;
+          pc.fils[q].material.opacity = 0.22 + pc.t * 0.72;
+        }
+      }
+      rendu.render(scene, cam);
+      requestAnimationFrame(image);
+    }
+    requestAnimationFrame(image);
+    return { progres: function (p) { prog = p; var n = Math.round(p * pieces.length); for (var k = 0; k < pieces.length; k++) pieces[k].cible = k < n ? 1 : 0; } };
+  }
+  batiment = creerBatiment(document.getElementById('batiment'));
+
+  /* Aperçu des services au survol */
+  var fin = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fin) {
+    var rond = document.getElementById('curseur-rond'), cx = 0, cy = 0, rx = 0, ry = 0;
+    window.addEventListener('mousemove', function (e) { cx = e.clientX; cy = e.clientY; rond.classList.add('actif'); });
+    (function suivre() { rx += (cx - rx) * 0.18; ry += (cy - ry) * 0.18; rond.style.transform = 'translate(' + rx + 'px,' + ry + 'px)'; requestAnimationFrame(suivre); })();
+    document.querySelectorAll('a, button, .compare, .service').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { rond.classList.add('grand'); });
+      el.addEventListener('mouseleave', function () { rond.classList.remove('grand'); });
+    });
+  }
+
+  /* Sans animation : tout montrer */
+  if (!aGsap) {
+    theseMaj(1);
+    avancer(1);
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { avancer(1); } });
+    }) : null;
+    if (io) io.observe(document.getElementById('methode'));
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Ouverture */
+  gsap.set('.hero .ligne > span', { yPercent: 115 });
+  gsap.set('.hero .fond', { scale: 1.18 });
+  var ouverture = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  ouverture.to('#rideau img', { opacity: 1, duration: 0.5 })
+    .to('#rideau img', { opacity: 0, y: -18, duration: 0.45, delay: 0.35 })
+    .to('#rideau', { yPercent: -100, duration: 0.9, ease: 'power4.inOut' }, '-=0.1')
+    .set('#rideau', { display: 'none' })
+    .to('.hero .fond', { scale: 1.04, duration: 2.6, ease: 'power2.out' }, '-=0.9')
+    .to('.hero .ligne > span', { yPercent: 0, duration: 1.25, stagger: 0.14, ease: 'power4.out' }, '-=2.3')
+    .to('.hero .rev', { opacity: 1, y: 0, duration: 1, stagger: 0.12 }, '-=1.5');
+  /* Filet de sécurité : si le navigateur ne fait pas tourner les animations, tout montrer */
+  setTimeout(function () {
+    if (gsap.ticker.time < 0.3) {
+      ouverture.progress(1);
+      gsap.set('.rev', { opacity: 1, y: 0 });
+    }
+    if (rideau) rideau.style.display = 'none';
+  }, 3500);
+
+  gsap.to('.hero .fond', { yPercent: 14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero .cadre', { opacity: 0, y: -60, ease: 'none', scrollTrigger: { trigger: '.hero', start: '45% top', end: 'bottom top', scrub: true } });
+
+  /* Apparitions */
+  gsap.utils.toArray('.rev').forEach(function (el) {
+    if (el.closest('.hero')) return;
+    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+
+  /* Thèse : section épinglée */
+  ScrollTrigger.create({
+    trigger: '#these', start: 'top top', end: '+=' + (petit ? 200 : 280) + '%', pin: true, scrub: true, anticipatePin: 1,
+    onUpdate: function (st) { theseMaj(st.progress * 1.03); }
+  });
+
+  /* Méthode : section épinglée */
+  ScrollTrigger.create({
+    trigger: '#methode', start: 'top top', end: '+=' + (petit ? 220 : 320) + '%', pin: true, scrub: true, anticipatePin: 1,
+    onUpdate: function (st) { avancer(st.progress * 1.04); }
+  });
+
+  /* Galerie horizontale */
+  var rail = document.getElementById('rail'), compteur = document.getElementById('compteur');
+  if (!petit) {
+    var course = function () { return Math.max(0, rail.scrollWidth - window.innerWidth); };
+    gsap.to(rail, {
+      x: function () { return -course(); }, ease: 'none',
+      scrollTrigger: {
+        trigger: '#galerie', start: 'top top', end: function () { return '+=' + course(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
+        onUpdate: function (st) { var n = Math.min(8, Math.floor(st.progress * 8) + 1); compteur.textContent = '0' + n + ' / 08'; }
+      }
+    });
+  } else {
+    compteur.textContent = 'Glissez →';
+  }
+
+  /* Chiffres */
+  gsap.utils.toArray('.chiffre .n').forEach(function (el) {
+    var vers = parseInt(el.dataset.vers, 10), o = { v: vers > 1 ? 0 : (vers === 0 ? 9 : 0) };
+    ScrollTrigger.create({ trigger: el, start: 'top 85%', once: true, onEnter: function () {
+      gsap.to(o, { v: vers, duration: 1.8, ease: 'power2.out', onUpdate: function () { el.textContent = Math.round(o.v); } });
+    } });
+  });
+
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+
+</body>
+</html>
