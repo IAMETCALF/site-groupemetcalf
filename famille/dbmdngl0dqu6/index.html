@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Succession d'Amina Ifticene</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Mise en page : une colonne de lecture calme, des sections numérotées comme un dossier, un fil du temps vertical. */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --ink:#1c2a2e; --muted:#5a6a6f; --line:#dde3e2;
+  --accent:#2b5e6a; --accent-soft:#e2edef; --gold:#9c7a2c; --gold-soft:#f3ecdb;
+  --ok:#2e7650; --ok-soft:#e2f1e8; --warn:#a8650f; --warn-soft:#f8ecda; --crit:#a33c3c; --crit-soft:#f6e3e3;
+  --f-display:"Newsreader", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111a1c; --surface:#182326; --ink:#e4ebeb; --muted:#9db0b3; --line:#2a383b;
+  --accent:#86bcc8; --accent-soft:#1d3237; --gold:#d8b45e; --gold-soft:#2e2818;
+  --ok:#72c495; --ok-soft:#183026; --warn:#e3a554; --warn-soft:#33270f; --crit:#e48181; --crit-soft:#3a1e1e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111a1c; --surface:#182326; --ink:#e4ebeb; --muted:#9db0b3; --line:#2a383b;
+  --accent:#86bcc8; --accent-soft:#1d3237; --gold:#d8b45e; --gold-soft:#2e2818;
+  --ok:#72c495; --ok-soft:#183026; --warn:#e3a554; --warn-soft:#33270f; --crit:#e48181; --crit-soft:#3a1e1e; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:880px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0;line-height:1.2}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--accent)}
+
+/* En-tête */
+.hero{padding-block:56px 36px;border-bottom:1px solid var(--line);display:grid;gap:18px}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.3rem);letter-spacing:-.01em}
+.dates{font-family:var(--f-display);font-size:1.25rem;color:var(--muted)}
+.lead{font-size:1.1rem;max-width:62ch}
+.note{font-size:.86rem;color:var(--muted);max-width:66ch}
+
+/* Sections */
+section{padding-block:44px 8px;display:grid;gap:20px}
+.sh{display:flex;gap:14px;align-items:baseline}
+.sh .n{font-family:var(--f-display);font-size:1rem;color:var(--accent);border:1px solid var(--accent);border-radius:999px;min-width:2rem;height:2rem;display:grid;place-items:center;flex:none}
+.sh h2{font-size:clamp(1.5rem,3.6vw,1.95rem)}
+.intro{color:var(--muted);max-width:64ch}
+
+/* Chiffres clés */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:6px;align-content:start}
+.kpi .v{font-family:var(--f-display);font-size:1.75rem;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:.9rem}
+.kpi .s{font-size:.8rem;color:var(--muted)}
+
+/* Pastilles */
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;letter-spacing:.02em;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}
+.p-crit{background:var(--crit-soft);color:var(--crit)}
+.p-info{background:var(--accent-soft);color:var(--accent)}
+.p-gold{background:var(--gold-soft);color:var(--gold)}
+
+/* Étapes */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;counter-reset:st}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start;position:relative}
+.step h3{font-size:1.15rem}
+.step p{font-size:.92rem;color:var(--muted)}
+.step .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.step .k{font-family:var(--f-display);color:var(--muted);font-size:.95rem}
+.step.done{border-top:3px solid var(--ok)}
+.step.now{border-top:3px solid var(--warn)}
+.step.next{border-top:3px solid var(--line)}
+
+/* Fil du temps */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.tl::before{content:"";position:absolute;left:111px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{display:grid;grid-template-columns:96px 32px 1fr;gap:0;align-items:start;padding-block:10px}
+.tl .d{font-size:.82rem;font-weight:600;color:var(--muted);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
+.tl .dot{width:14px;height:14px;border-radius:50%;margin:5px auto 0;background:var(--surface);border:3px solid var(--muted);position:relative;z-index:1}
+.tl .t{min-width:0}
+.tl .t b{font-weight:600}
+.tl .t span{display:block;font-size:.88rem;color:var(--muted)}
+.tl .phase{grid-column:1/-1;padding:18px 0 6px 128px;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.tl li.ph{padding:0}
+.tl .before .dot{border-color:var(--muted)}
+.tl .fun .dot{border-color:var(--gold)}
+.tl .liq .dot{border-color:var(--accent);background:var(--accent)}
+.tl .fut .dot{border-color:var(--warn);border-style:dashed}
+.tl .fut .d{color:var(--warn)}
+@media (max-width:560px){
+  .tl::before{left:15px}
+  .tl li{grid-template-columns:32px 1fr;grid-template-areas:"dot d" "dot t"}
+  .tl .d{grid-area:d;text-align:left}
+  .tl .dot{grid-area:dot}
+  .tl .t{grid-area:t}
+  .tl .phase{padding-left:40px}
+}
+
+/* Tableaux */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td{font-weight:700;background:var(--accent-soft)}
+td small{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+
+/* Barres */
+.bars{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px}
+.bar{display:grid;grid-template-columns:minmax(120px,190px) 1fr auto;gap:12px;align-items:center;font-size:.92rem}
+.bar .track{height:12px;background:var(--bg);border-radius:999px;overflow:hidden}
+.bar .fill{height:100%;border-radius:999px;background:var(--accent)}
+.bar .val{font-variant-numeric:tabular-nums;font-weight:600;min-width:6.5em;text-align:right}
+@media (max-width:560px){.bar{grid-template-columns:1fr auto}.bar .track{grid-column:1/-1;order:3}}
+
+/* Encadrés */
+.callout{border-radius:var(--r);padding:18px 20px;display:grid;gap:6px;border:1px solid}
+.callout h3{font-size:1.1rem}
+.callout p{font-size:.95rem}
+.c-warn{background:var(--warn-soft);border-color:color-mix(in srgb,var(--warn) 35%,transparent)}
+.c-info{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+
+/* Liste à faire */
+.todo{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.todo li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start}
+.todo .box{width:20px;height:20px;border:2px solid var(--muted);border-radius:6px;margin-top:2px}
+.todo .who{font-size:.8rem;color:var(--muted)}
+.todo .when{font-size:.8rem;font-weight:600;color:var(--warn);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:560px){.todo li{grid-template-columns:auto 1fr}.todo .when{grid-column:2}}
+
+/* Lexique */
+dl.lex{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:0}
+dl.lex div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+dl.lex dt{font-family:var(--f-display);font-size:1.1rem;margin-bottom:4px}
+dl.lex dd{margin:0;font-size:.92rem;color:var(--muted)}
+
+.dlbtn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--surface);text-decoration:none;font-weight:600;padding:14px 22px;border-radius:999px;font-size:1rem}
+.dlbtn:hover{opacity:.9}
+.dlbtn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);display:grid;gap:6px}
+@media (prefers-reduced-motion:no-preference){.kpi,.step{transition:transform .2s ease}.kpi:hover,.step:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Dossier de succession · Québec</div>
+  <h1>Succession d'Amina Ifticene</h1>
+  <div class="dates num">10 août 1968 · 7 avril 2026</div>
+  <p class="lead">Cette page rassemble tout ce qu'on sait de la succession de tante Amina : ce qui s'est passé depuis son décès, ce qu'elle a laissé, ce qui a été payé, ce que dit son testament, et ce qui reste à faire avant de remettre à chacun sa part.</p>
+  <p class="note">Préparé le 25 novembre 2026 à partir des 49 pièces du dossier (relevés de banque, factures, actes, testament). Les montants viennent des pièces; quand un montant est seulement déclaré, la page le dit. Ce n'est pas un avis de notaire : le notaire au dossier valide le partage final.</p>
+</header>
+
+<section id="resume">
+  <div class="sh"><span class="n">1</span><h2>Où on en est</h2></div>
+  <p class="intro">Les funérailles sont payées, la liquidatrice est inscrite auprès de Revenu Québec et l'argent de la banque est réuni dans un compte de la succession. Il reste à finaliser l'inventaire, régler les impôts de l'année du décès et obtenir les certificats des gouvernements avant le partage.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="pill p-ok">prouvé</span><div class="v num">75 112 $</div><div class="l">Compte de la succession au 30 juillet 2026</div><div class="s">Les deux comptes RBC fermés, plus 3 chèques reçus</div></div>
+    <div class="kpi"><span class="pill p-gold">partage signé</span><div class="v num">154 240 $</div><div class="l">12 pièces d'or et 30 rouleaux d'argent</div><div class="s">Valeur au 7 avril 2026, acceptée par les héritiers</div></div>
+    <div class="kpi"><span class="pill p-info">payé</span><div class="v num">24 266 $</div><div class="l">Funérailles, cimetière, monument et frais</div><div class="s">Tout le connu est payé</div></div>
+    <div class="kpi"><span class="pill p-info">légué à Martin</span><div class="v num">98 774 $</div><div class="l">REER remis à Martin</div><div class="s">Le testament le lui donne, impôts à sa charge</div></div>
+  </div>
+</section>
+
+<section id="etapes">
+  <div class="sh"><span class="n">2</span><h2>Les étapes d'une succession</h2></div>
+  <p class="intro">Au Québec, une succession suit toujours le même ordre. On ne peut pas partager avant d'avoir payé les dettes et les impôts, sinon la liquidatrice en devient personnellement responsable.</p>
+  <div class="steps">
+    <div class="step done"><div class="top"><span class="k">Étape 1</span><span class="pill p-ok">fait</span></div><h3>Décès et funérailles</h3><p>Lot au cimetière Notre-Dame-des-Neiges, salon funéraire, inhumation le 10 avril, monument posé.</p></div>
+    <div class="step done"><div class="top"><span class="k">Étape 2</span><span class="pill p-ok">fait</span></div><h3>La liquidatrice</h3><p>Le testament nommait d'abord Martin et Mourad, puis Ahmed, puis Ahmed et Sofia. Après trois renonciations, Sofia s'en occupe; elle est inscrite à Revenu Québec depuis le 25 septembre 2026.</p></div>
+    <div class="step now"><div class="top"><span class="k">Étape 3</span><span class="pill p-warn">en cours</span></div><h3>L'inventaire</h3><p>La liste de tout ce qu'elle possédait et devait. Il doit être signé devant notaire ou deux témoins, puis annoncé publiquement.</p></div>
+    <div class="step now"><div class="top"><span class="k">Étape 4</span><span class="pill p-warn">presque fait</span></div><h3>Payer les dettes</h3><p>Funérailles, notaire, ambulance, Hydro : payés. Restent à vérifier les soldes des cartes de crédit.</p></div>
+    <div class="step next"><div class="top"><span class="k">Étape 5</span><span class="pill p-crit">à faire</span></div><h3>Impôts et certificats</h3><p>Déclarations de revenus de 2026, puis les deux certificats (Québec et Canada) qui permettent de distribuer sans risque.</p></div>
+    <div class="step next"><div class="top"><span class="k">Étape 6</span><span class="pill p-info">à venir</span></div><h3>Le partage</h3><p>Selon le testament, une fois tout payé. Chaque héritier signe une quittance en recevant sa part.</p></div>
+  </div>
+</section>
+
+<section id="temps">
+  <div class="sh"><span class="n">3</span><h2>Le fil du temps</h2></div>
+  <ol class="tl">
+    <li class="ph"><div class="phase">Avant le décès</div></li>
+    <li class="before"><div class="d">29 juin 2006</div><div class="dot"></div><div class="t"><b>Mariage avec Martin</b><span>À Montréal</span></div></li>
+    <li class="before"><div class="d">19 juin 2023</div><div class="dot"></div><div class="t"><b>Testament notarié</b><span>Chez Me Lorena Lopez Gonzalez, à Montréal</span></div></li>
+    <li class="before"><div class="d">2019 à 2025</div><div class="dot"></div><div class="t"><b>Achats d'or et d'argent chez Kitco</b><span>12 pièces d'or d'une once et 29 tubes de pièces d'argent, 63 536 $ au total</span></div></li>
+    <li class="before"><div class="d">20 févr. 2026</div><div class="dot"></div><div class="t"><b>Note manuscrite d'Amina</b><span>Elle précise ses volontés : les métaux, et 22 000 $ pour les funérailles</span></div></li>
+    <li class="before"><div class="d">27-30 mars 2026</div><div class="dot"></div><div class="t"><b>Son CELI et un petit REER sont encaissés</b><span>58 508 $ versés dans ses comptes RBC</span></div></li>
+    <li class="before"><div class="d">3 avril 2026</div><div class="dot"></div><div class="t"><b>Pré-arrangement funéraire</b><span>Acompte de 983 $</span></div></li>
+    <li class="ph"><div class="phase">Le décès et les funérailles</div></li>
+    <li class="fun"><div class="d">7 avril 2026</div><div class="dot"></div><div class="t"><b>Décès d'Amina, à Montréal</b><span>Achat du lot au cimetière le même jour</span></div></li>
+    <li class="fun"><div class="d">8-9 avril</div><div class="dot"></div><div class="t"><b>Salon funéraire et actes de décès</b><span>Contrat signé, déclaration de décès faite</span></div></li>
+    <li class="fun"><div class="d">10 avril</div><div class="dot"></div><div class="t"><b>Inhumation</b><span>Cimetière Notre-Dame-des-Neiges</span></div></li>
+    <li class="fun"><div class="d">11 avril</div><div class="dot"></div><div class="t"><b>L'or et l'argent sont comptés au domicile</b><span>12 pièces d'or et 30 rouleaux d'argent</span></div></li>
+    <li class="ph"><div class="phase">La liquidation</div></li>
+    <li class="liq"><div class="d">4 mai</div><div class="dot"></div><div class="t"><b>Recherche de testament chez la notaire</b><span>Registres de la Chambre des notaires</span></div></li>
+    <li class="liq"><div class="d">11-12 mai</div><div class="dot"></div><div class="t"><b>Convention de partage des métaux signée</b><span>Par Martin, Ahmed, Mourad, Hanifa, Assia, Samia, Sofia et Tarik</span></div></li>
+    <li class="liq"><div class="d">5 juin</div><div class="dot"></div><div class="t"><b>Trois personnes renoncent à être liquidatrices</b><span>Actes faits chez la notaire</span></div></li>
+    <li class="liq"><div class="d">27-30 juill.</div><div class="dot"></div><div class="t"><b>Ouverture du compte de la succession</b><span>Les deux comptes RBC y sont versés, plus le RRQ, la prestation de décès et Koodo : 75 112 $</span></div></li>
+    <li class="liq"><div class="d">12 août</div><div class="dot"></div><div class="t"><b>Monument et notaire payés</b><span>4 432 $ sortis du compte de la succession</span></div></li>
+    <li class="liq"><div class="d">11 sept.</div><div class="dot"></div><div class="t"><b>Le REER est remis à Martin</b><span>98 774 $, son legs selon le testament</span></div></li>
+    <li class="liq"><div class="d">25 sept.</div><div class="dot"></div><div class="t"><b>Sofia inscrite comme liquidatrice à Revenu Québec</b></div></li>
+    <li class="ph"><div class="phase">Les prochaines dates</div></li>
+    <li class="fut"><div class="d">6 déc. 2026</div><div class="dot"></div><div class="t"><b>Inventaire à finaliser</b><span>Repère légal : 6 mois après le décès plus 60 jours. Le signer et publier l'avis de clôture</span></div></li>
+    <li class="fut"><div class="d">7 avril 2027</div><div class="dot"></div><div class="t"><b>Un an après le décès</b><span>Premier compte annuel de la liquidatrice aux héritiers</span></div></li>
+    <li class="fut"><div class="d">30 avril 2027</div><div class="dot"></div><div class="t"><b>Déclarations de revenus de 2026</b><span>Québec et Canada, pour la période du 1er janvier au 7 avril 2026</span></div></li>
+    <li class="fut"><div class="d">Après</div><div class="dot"></div><div class="t"><b>Certificats des gouvernements, puis partage</b><span>Les délais des gouvernements sont de quelques mois après les avis de cotisation</span></div></li>
+  </ol>
+</section>
+
+<section id="biens">
+  <div class="sh"><span class="n">4</span><h2>Ce qu'elle a laissé</h2></div>
+  <p class="intro">Les valeurs sont celles du jour du décès. La colonne de droite dit si le montant est prouvé par une pièce ou seulement déclaré.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Bien</th><th class="r">Valeur</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>Compte d'épargne RBC (…434)<small>Versé au compte de la succession le 27 juillet</small></td><td class="r">64 089,94 $</td><td><span class="pill p-ok">prouvé</span></td></tr>
+      <tr><td>Compte chèques RBC (…680)<small>Versé au compte de la succession le 27 juillet</small></td><td class="r">7 016,51 $</td><td><span class="pill p-ok">prouvé</span></td></tr>
+      <tr><td>Rente RRQ d'avril, prestation de décès, remboursement Koodo<small>Trois chèques déposés le 30 juillet</small></td><td class="r">3 633,62 $</td><td><span class="pill p-ok">prouvé</span></td></tr>
+      <tr><td>Derniers versements Desjardins<small>Déposés au compte chèques en avril</small></td><td class="r">346,62 $</td><td><span class="pill p-ok">prouvé</span></td></tr>
+      <tr><td>12 pièces d'or d'une once (Feuille d'érable)<small>Comptées le 11 avril 2026. 6 514,55 $ l'once au 7 avril, valeur acceptée par les héritiers</small></td><td class="r">78 174,65 $</td><td><span class="pill p-gold">convenu</span></td></tr>
+      <tr><td>30 rouleaux de 25 pièces d'argent d'une once<small>Comptés le 11 avril 2026. 101,42 $ l'once au 7 avril, valeur acceptée par les héritiers</small></td><td class="r">76 065,00 $</td><td><span class="pill p-gold">convenu</span></td></tr>
+      <tr><td>Argent comptant pour les funérailles<small>22 000 $ laissés par Amina « dans la valise bleue » (sa note du 20 février 2026), plus 2 000 $ retirés en avril. Il reste environ 4 452 $ non dépensés, à déposer au compte de la succession</small></td><td class="r">24 000,00 $</td><td><span class="pill p-warn">déclaré</span></td></tr>
+      <tr><td>Compte Tangerine<small>La carte et un dépôt de mars le prouvent; le solde est inconnu</small></td><td class="r">à obtenir</td><td><span class="pill p-crit">oublié au brouillon</span></td></tr>
+      <tr><td>Compte bancaire en Algérie<small>Un carnet et un extrait de compte sont mentionnés</small></td><td class="r">à obtenir</td><td><span class="pill p-crit">oublié au brouillon</span></td></tr>
+      <tr><td>Bijoux, tableaux, vêtements<small>Déjà partagés dans la famille, sans liste</small></td><td class="r">non évalués</td><td><span class="pill p-warn">à lister</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Légué à Martin</th><th class="r">Valeur</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td>REER RBC (CPG IntelliMarché)<small>Le testament donne à Martin tous les régimes enregistrés, avec leurs impôts. Remis le 11 septembre 2026</small></td><td class="r">98 774,41 $</td><td><span class="pill p-info">remis</span></td></tr>
+      <tr><td>Assurance-vie Desjardins<small>Si elle existe : à Martin, par bénéficiaire désigné ou par le testament. Aucun document dans le dossier</small></td><td class="r">inconnue</td><td><span class="pill p-warn">à confirmer</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="paye">
+  <div class="sh"><span class="n">5</span><h2>Ce qui a été payé</h2></div>
+  <p class="intro">24 266 $ de dépenses, toutes payées : en partie avec l'argent comptant qu'Amina avait remis à Martin, en partie par ses comptes et par le compte de la succession.</p>
+  <div class="bars">
+    <div class="bar"><span>Salon funéraire</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">9 834,99 $</span></div>
+    <div class="bar"><span>Lot au cimetière</span><div class="track"><div class="fill" style="width:66.6%"></div></div><span class="val">6 553,58 $</span></div>
+    <div class="bar"><span>Monument</span><div class="track"><div class="fill" style="width:36.1%"></div></div><span class="val">3 549,86 $</span></div>
+    <div class="bar"><span>Inhumation</span><div class="track"><div class="fill" style="width:25.6%"></div></div><span class="val">2 520,00 $</span></div>
+    <div class="bar"><span>Notaire</span><div class="track"><div class="fill" style="width:13.8%"></div></div><span class="val">1 356,70 $</span></div>
+    <div class="bar"><span>Autres (ambulance, Hydro, actes de décès, frais)</span><div class="track"><div class="fill" style="width:4.6%"></div></div><span class="val">451,25 $</span></div>
+  </div>
+</section>
+
+<section id="partage">
+  <div class="sh"><span class="n">6</span><h2>Le testament et le partage</h2></div>
+  <p class="intro">Tante Amina a fait un testament notarié le 19 juin 2023, devant Me Lorena Lopez Gonzalez (minute 10897). Il couvre tous ses biens. Voici ce qu'il donne, et ce que ça représente en chiffres.</p>
+
+  <div class="grid2">
+    <div class="callout c-info"><h3>Ses frères et sœurs</h3><p>Ahmed, Mourad, Hanifa, Assia et Samia reçoivent, à parts égales, <b>le solde de son compte d'épargne RBC</b>, ainsi que les vêtements qu'elle a faits, ses foulards de soie et ses photos de famille. Ses trois sœurs reçoivent aussi tous ses bijoux. L'or et l'argent suivent la convention signée par la famille (ci-dessous).</p></div>
+    <div class="callout c-info"><h3>Martin, son époux</h3><p>Il reçoit ses régimes enregistrés (le REER), avec les impôts qui s'y rattachent, sa part de l'or et de l'argent, et <b>tout le reste</b> : le compte chèques, les sommes reçues après le décès, le solde de l'argent comptant. C'est aussi sur sa part que se paient les dettes, les frais et les impôts.</p></div>
+  </div>
+
+  <div class="callout c-info"><h3>L'or et l'argent : la convention signée</h3><p>Les 11 et 12 mai 2026, Martin, Ahmed, Mourad, Hanifa, Assia, Samia, Sofia et Tarik ont signé une convention de partage des métaux, qui reprend les volontés exprimées par Amina. Les pièces ont été comptées le 11 avril au domicile : 12 pièces d'or et 30 rouleaux d'argent. La valeur est celle du jour du décès, acceptée par tous : 6 514,55 $ l'once d'or et 101,42 $ l'once d'argent.</p></div>
+
+  <div class="bars" aria-label="Répartition estimée">
+    <div class="bar"><span>Martin (REER, métaux, le reste)</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">160 566 $</span></div>
+    <div class="bar"><span>Mourad</span><div class="track"><div class="fill" style="width:28.08%;background:var(--gold)"></div></div><span class="val">45 090 $</span></div>
+    <div class="bar"><span>Hanifa</span><div class="track"><div class="fill" style="width:22.45%;background:var(--gold)"></div></div><span class="val">36 040 $ + bijoux</span></div>
+    <div class="bar"><span>Assia</span><div class="track"><div class="fill" style="width:15.23%;background:var(--gold)"></div></div><span class="val">24 454 $ + bijoux</span></div>
+    <div class="bar"><span>Ahmed</span><div class="track"><div class="fill" style="width:13.65%;background:var(--gold)"></div></div><span class="val">21 919 $</span></div>
+    <div class="bar"><span>Samia</span><div class="track"><div class="fill" style="width:13.65%;background:var(--gold)"></div></div><span class="val">21 919 $ + bijoux</span></div>
+    <div class="bar"><span>Sofia</span><div class="track"><div class="fill" style="width:5.64%;background:var(--gold)"></div></div><span class="val">9 050 $</span></div>
+    <div class="bar"><span>Tarik</span><div class="track"><div class="fill" style="width:5.64%;background:var(--gold)"></div></div><span class="val">9 050 $</span></div>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Personne</th><th class="r">Compte d'épargne</th><th>Or et argent</th><th class="r">Valeur des métaux</th><th class="r">Total estimé</th></tr></thead>
+    <tbody>
+      <tr><td>Martin<small>Aussi le REER (98 774 $) et le reste net (10 730 $)</small></td><td class="r">—</td><td>2 pièces, 15 rouleaux</td><td class="r">51 061,61 $</td><td class="r">160 566,39 $</td></tr>
+      <tr><td>Mourad</td><td class="r">12 868,63 $</td><td>3 pièces, 5 rouleaux</td><td class="r">32 221,16 $</td><td class="r">45 089,79 $</td></tr>
+      <tr><td>Hanifa<small>+ 1/3 des bijoux</small></td><td class="r">12 868,63 $</td><td>2 pièces, 4 rouleaux</td><td class="r">23 171,11 $</td><td class="r">36 039,74 $</td></tr>
+      <tr><td>Assia<small>+ 1/3 des bijoux</small></td><td class="r">12 868,63 $</td><td>1 pièce, 2 rouleaux</td><td class="r">11 585,55 $</td><td class="r">24 454,18 $</td></tr>
+      <tr><td>Ahmed</td><td class="r">12 868,63 $</td><td>1 pièce, 1 rouleau</td><td class="r">9 050,05 $</td><td class="r">21 918,68 $</td></tr>
+      <tr><td>Samia<small>+ 1/3 des bijoux</small></td><td class="r">12 868,63 $</td><td>1 pièce, 1 rouleau</td><td class="r">9 050,05 $</td><td class="r">21 918,68 $</td></tr>
+      <tr><td>Sofia</td><td class="r">—</td><td>1 pièce, 1 rouleau</td><td class="r">9 050,05 $</td><td class="r">9 050,05 $</td></tr>
+      <tr><td>Tarik</td><td class="r">—</td><td>1 pièce, 1 rouleau</td><td class="r">9 050,05 $</td><td class="r">9 050,05 $</td></tr>
+      <tr class="tot"><td>Total</td><td class="r">64 343,15 $</td><td>12 pièces, 30 rouleaux</td><td class="r">154 239,63 $</td><td class="r">328 087,56 $</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Le compte d'épargne (avec ses intérêts) se partage en cinq entre les frères et sœurs, selon le testament. Ils reçoivent aussi les vêtements faits par Amina, ses foulards de soie et ses photos.</p>
+
+  <div class="callout c-warn"><h3>À garder en tête</h3><p>Ces montants sont <b>avant les impôts de 2026</b>. L'or et l'argent se remettent en pièces : si leur prix change, la part de chacun ne change pas. Une note manuscrite d'Amina du 20 février 2026 précise ses volontés et explique les 22 000 $ pour les funérailles; elle n'est pas signée, la notaire dira quelle valeur elle a. Et rien ne se remet avant les certificats de Revenu Québec et de l'ARC : c'est ce qui protège la liquidatrice et tout le monde.</p></div>
+</section>
+
+<section id="afaire">
+  <div class="sh"><span class="n">7</span><h2>Ce qui reste à faire</h2></div>
+  <ul class="todo">
+    <li><span class="box"></span><div><b>Remettre l'or et l'argent selon la convention</b><div class="who">Mourad et Martin, contre un reçu signé par chacun</div></div><span class="when">au plus tôt</span></li>
+    <li><span class="box"></span><div><b>Déposer le reste de l'argent comptant au compte de la succession</b><div class="who">Martin, environ 4 452 $, avec la liste des dépenses payées</div></div><span class="when">au plus tôt</span></li>
+    <li><span class="box"></span><div><b>Obtenir les soldes Tangerine, Visa RBC et du compte en Algérie</b><div class="who">Sofia, avec l'acte de décès</div></div><span class="when">décembre</span></li>
+    <li><span class="box"></span><div><b>Faire la liste des bijoux et objets déjà partagés</b><div class="who">La famille : qui a reçu quoi, signée par tous</div></div><span class="when">décembre</span></li>
+    <li><span class="box"></span><div><b>Signer l'inventaire et publier l'avis de clôture</b><div class="who">Sofia, chez la notaire</div></div><span class="when">6 déc. 2026</span></li>
+    <li><span class="box"></span><div><b>Déclarations de revenus de 2026</b><div class="who">Sofia avec un comptable : Québec et Canada</div></div><span class="when">30 avril 2027</span></li>
+    <li><span class="box"></span><div><b>Demander les certificats de Revenu Québec et de l'ARC</b><div class="who">Sofia, après les avis de cotisation</div></div><span class="when">2027</span></li>
+    <li><span class="box"></span><div><b>Remettre à chaque frère et sœur sa part du compte d'épargne</b><div class="who">12 868,63 $ chacun, contre une quittance signée</div></div><span class="when">après les certificats</span></li>
+    <li><span class="box"></span><div><b>Compte final et remise du reste à Martin</b><div class="who">Sofia et la notaire</div></div><span class="when">à la fin</span></li>
+  </ul>
+</section>
+
+<section id="mots">
+  <div class="sh"><span class="n">8</span><h2>Les mots à connaître</h2></div>
+  <dl class="lex">
+    <div><dt>Liquidatrice</dt><dd>La personne qui règle la succession : elle réunit les biens, paie les dettes, fait les déclarations d'impôt et remet sa part à chacun. Ici, Sofia.</dd></div>
+    <div><dt>Inventaire</dt><dd>La liste officielle de ce que la personne possédait et devait au décès. Il protège les héritiers : ils ne paient jamais plus de dettes que ce qu'ils reçoivent.</dd></div>
+    <div><dt>Bénéficiaire désigné</dt><dd>Une personne nommée directement sur un REER ou une assurance. L'argent lui va sans passer par la succession ni par le testament.</dd></div>
+    <div><dt>Certificats des gouvernements</dt><dd>Revenu Québec et l'Agence du revenu du Canada confirment que les impôts sont payés. Sans eux, la liquidatrice qui distribue l'argent en répond elle-même.</dd></div>
+    <div><dt>Legs</dt><dd>Ce que le testament donne à quelqu'un : une somme ou un objet précis (legs particulier), une fraction de tout (legs à titre universel), ou le reste (légataire universel).</dd></div>
+    <div><dt>Quittance</dt><dd>Le reçu signé par l'héritier quand il reçoit sa part. Il ferme le dossier pour lui.</dd></div>
+  </dl>
+</section>
+
+<section id="documents">
+  <div class="sh"><span class="n">9</span><h2>L'inventaire complet et les documents</h2></div>
+  <p class="intro">Le PDF rassemble l'inventaire détaillé et tous les documents officiels qui l'appuient, classés de A à T : acte de décès, testament, note d'Amina, convention signée, relevés de banque, factures Kitco, cimetière, salon funéraire, monument, notaire.</p>
+  <div><a class="dlbtn" href="inventaire-succession-amina-ifticene.pdf" download>Télécharger l'inventaire complet (PDF, 115 pages, 10 Mo)</a></div>
+</section>
+
+<footer>
+  <p>Sources : relevés RBC, factures du salon funéraire, du cimetière, de la notaire et de Kitco, actes de décès, avis du RRQ et de Revenu Québec, testament. Lois consultées : Code civil du Québec (à jour au 15 octobre 2026), Loi sur l'administration fiscale, Loi de l'impôt sur le revenu, guide IN-117 de Revenu Québec.</p>
+  <p>Numéros de compte tronqués. Page privée, à ne partager qu'avec la famille.</p>
+</footer>
+</div>
+
+</body>
+</html>
