@@ -1,4 +1,6 @@
 User-agent: *
+Disallow: /suivi/
+Disallow: /famille/
 Allow: /
 
 Sitemap: https://www.groupemetcalf.ca/sitemap.xml
